@@ -1,9 +1,9 @@
-#site-left {
+#site-right {
     min-height: 100vh; 
     background-color: black;
 }
 
-#site-right {
+#site-left {
     min-height: 100vh; 
     background-color: rgb(145, 215, 236);
 }

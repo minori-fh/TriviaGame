@@ -7,6 +7,7 @@ $("#trivia-page").hide();
 $("#start").on("click", function(){
     $("#first-page").hide();
     $("#trivia-page").show();
+    startClock();
 });
 
 //Create array of objects for trivia game questions and answers
@@ -48,21 +49,21 @@ var id = "" //the id of the input (answer) that was clicked on by the player
 //Place questions and answers in HTML DOM with a for loop
 
 
-//Initial load of first question and answers
+//Initial load of first question/answers and timer start 
 $("#question").html(triviaGame[0].question)
 $("#0").val(triviaGame[0].answer[0])
 $("#1").val(triviaGame[0].answer[1])
 $("#2").val(triviaGame[0].answer[2])
 $("#3").val(triviaGame[0].answer[3])
 
+function startClock(){
+    console.log("working")
+    intervalID = setInterval(decrement, 1000)
+    $("#remaining-time").html(time)
+}
+
 //If statements based on how much time is left
 if (time > 0) { //if time is still available, perform the functions below
-    
-    //function to start the time decrement
-    function run(){
-        intervalID = setInterval(decrement, 1000)
-        $("#remaining-time").html(time)
-    }
 
     //on-click functionality for when a player picks an answer 
     $(".input-group-text").click(function(){
@@ -71,39 +72,42 @@ if (time > 0) { //if time is still available, perform the functions below
         if (id === triviaGame[questionIndex].correct){ //if the id of the input that was clicked on matches the correct value 
             correctCount++;
             $("#win-lose").html("Correct!")
+            $("#dwight-says").html("FACT")
+            $("#site-left").css("background-color", "rgb(116, 187, 128)"); 
         } else { //if the id of the input that was clicked on does not match the correct value 
             incorrectCount++; 
             $("#win-lose").html("Incorrect!")
+            $("#dwight-says").html("FALSE")
+            $("#site-left").css("background-color", "rgb(153, 28, 28)");
         }
     })
 
+    function decrement(){ //decrement function 
+        time--; 
+        console.log(time)
+        $("#remaining-time").html(time)
+
+        if (time === 0){
+            stop();
+            $("#message").html("You ran out of time!")
+        }
+    }
+
+    function stop(){ //stop function to clear out interval
+        clearInterval(intervalID); 
+    }
     //if statements based on whether the question has been answered or not
     if (answered = false){ 
-        function decrement(){ //decrement function 
-            time--; 
-            $("#remaining-time").html(time)
-    
-            if (time === 0){
-                stop();
-                $("#message").html("You ran out of time!")
-            }
-        }
-    
-        function stop(){ //stop function to clear out interval
-            clearInterval(intervalID); 
-        }
     } else if (answered){ //else if the question has been answered
         function stop(){ //stop function to clear out interval
             clearInterval(intervalID); 
         }
     }
 
-    run();
 
 } else if (time === 0) { //if time has run out, perform the functions below 
     stop();
     $("#message").html("You ran out of time!")
 }
-
 
 }); //END document ready

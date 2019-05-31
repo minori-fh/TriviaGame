@@ -58,3 +58,10 @@
     font-size: 30px; 
     text-align: center; 
 }
+
+.card {
+    margin-top: 20%;
+    margin-left: 10%; 
+    width: 70%; 
+
+}

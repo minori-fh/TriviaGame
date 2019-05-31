@@ -38,14 +38,25 @@ var triviaGame = [
 
 //Set initial variables
 var time = 5;
-var intervalID; 
+var intervalID;
+
+//Place questions and answers in HTML DOM with a for loop
+
+for (var i=0; i < triviaGame.length; i++){
+    $("#question").html(triviaGame[i].question)
+    $("#1").val(triviaGame[i].answer[0])
+    $("#2").val(triviaGame[i].answer[1])
+    $("#3").val(triviaGame[i].answer[2])
+    $("#4").val(triviaGame[i].answer[3])
+}
+
 
 //If statements based on how much time is left
 if (time > 0) { //if time is still available, perform the functions below
     
     function run(){
         intervalID = setInterval(decrement, 1000)
-        $("#remaining-time").html(number)
+        $("#remaining-time").html(time)
     }
 
     function decrement(){ //decrement function 

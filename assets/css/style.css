@@ -24,3 +24,9 @@
     background-color: rgb(145, 215, 236);
     top: 0px; 
 }
+
+#title {
+    color: black; 
+    font-family: 'Bitter', serif; 
+    font-size: 100px; 
+}

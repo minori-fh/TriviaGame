@@ -13,7 +13,7 @@ $("#start").on("click", function(){
 var triviaGame = [
     {question: "What type of farm does Dwight own?",
      answer: ["Bear farm", "Beet farm", "Carrot farm", "Beetle farm"],
-     correct: "A",
+     correct: "B",
     },
     {question: "Which of Angela's cats does Dwight freeze?",
      answer: ["Bandit", "Sparkles", "Sprinkes", "Fluffy"],
@@ -48,27 +48,12 @@ var id = "" //the id of the input (answer) that was clicked on by the player
 //Place questions and answers in HTML DOM with a for loop
 
 
-//Initial load of question and answers
+//Initial load of first question and answers
 $("#question").html(triviaGame[0].question)
 $("#0").val(triviaGame[0].answer[0])
 $("#1").val(triviaGame[0].answer[1])
 $("#2").val(triviaGame[0].answer[2])
 $("#3").val(triviaGame[0].answer[3])
-
-
-//On click functionality for when a player picks an answer
-$(".input-group-text").click(function(){
-    answered = true; 
-    id = $(this).attr("id");
-    console.log(id)
-    if (id === triviaGame[i].correct){ //if the id of the input that was clicked on matches the correct value 
-        correctCount++;
-    } else { //if the id of the input that was clicked on does not match the correct value 
-        incorrectCount++; 
-    }
-
-});
-
 
 //If statements based on how much time is left
 if (time > 0) { //if time is still available, perform the functions below
@@ -80,6 +65,17 @@ if (time > 0) { //if time is still available, perform the functions below
     }
 
     //on-click functionality for when a player picks an answer 
+    $(".input-group-text").click(function(){
+        answered = true; 
+        id = $(this).attr("id");
+        if (id === triviaGame[questionIndex].correct){ //if the id of the input that was clicked on matches the correct value 
+            correctCount++;
+            $("#win-lose").html("Correct!")
+        } else { //if the id of the input that was clicked on does not match the correct value 
+            incorrectCount++; 
+            $("#win-lose").html("Incorrect!")
+        }
+    })
 
     //if statements based on whether the question has been answered or not
     if (answered = false){ 

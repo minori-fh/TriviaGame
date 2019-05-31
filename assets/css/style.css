@@ -1,9 +1,26 @@
 #site-right {
     min-height: 100vh; 
-    background-color: black;
+    background-color: rgb(192, 192, 192);
 }
 
 #site-left {
     min-height: 100vh; 
     background-color: rgb(145, 215, 236);
+}
+
+#dwight1 {
+    margin-top: 20%;
+}
+
+#dwight2 {
+    display: block; 
+    margin: auto; 
+    margin-top: 40%; 
+}
+
+#first-page {
+    min-height: 100vh;
+    min-width: 100vw; 
+    background-color: rgb(145, 215, 236);
+    top: 0px; 
 }

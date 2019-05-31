@@ -39,16 +39,26 @@ var triviaGame = [
 //Set initial variables
 var time = 5;
 var intervalID;
+var questionIndex = 0; 
+var answered = false; 
 
 //Place questions and answers in HTML DOM with a for loop
 
+
+//Initial load of question and answers
+$("#question").html(triviaGame[0].question)
 for (var i=0; i < triviaGame.length; i++){
-    $("#question").html(triviaGame[i].question)
-    $("#1").val(triviaGame[i].answer[0])
-    $("#2").val(triviaGame[i].answer[1])
-    $("#3").val(triviaGame[i].answer[2])
-    $("#4").val(triviaGame[i].answer[3])
+    $("#0").val(triviaGame[0].answer[0])
+    $("#1").val(triviaGame[0].answer[1])
+    $("#2").val(triviaGame[0].answer[2])
+    $("#3").val(triviaGame[0].answer[3])
 }
+
+//On click functionality for when a player picks an answer
+$(".input-group-text").on("click", function(){
+    answered = true; 
+    console.log("answered!")
+})
 
 
 //If statements based on how much time is left
@@ -58,19 +68,27 @@ if (time > 0) { //if time is still available, perform the functions below
         intervalID = setInterval(decrement, 1000)
         $("#remaining-time").html(time)
     }
-
-    function decrement(){ //decrement function 
-        time--; 
-        $("#remaining-time").html(time)
-
-        if (time === 0){
-            stop();
-            $("#message").html("You ran out of time!")
+    //if the question has not been answered yet
+    if (answered = false){ 
+        function decrement(){ //decrement function 
+            time--; 
+            $("#remaining-time").html(time)
+    
+            if (time === 0){
+                stop();
+                $("#message").html("You ran out of time!")
+            }
+        }
+    
+        function stop(){ //stop function to clear out interval
+            clearInterval(intervalID); 
         }
     }
-
-    function stop(){ //stop function to clear out interval
-        clearInterval(intervalID); 
+    //if the question has been answered
+    if (answered){
+        function stop(){ //stop function to clear out interval
+            clearInterval(intervalID); 
+        }
     }
 
     run();

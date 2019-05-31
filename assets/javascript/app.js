@@ -13,27 +13,27 @@ $("#start").on("click", function(){
 var triviaGame = [
     {question: "What type of farm does Dwight own?",
      answer: ["Bear farm", "Beet farm", "Carrot farm", "Beetle farm"],
-     correct: 2,
+     correct: "A",
     },
     {question: "Which of Angela's cats does Dwight freeze?",
      answer: ["Bandit", "Sparkles", "Sprinkes", "Fluffy"],
-     correct: 3,
+     correct: "B",
     },
     {question: "What tattoo is Andy forced to get?",
      answer: ["A 'nard dog'", "A butt", "A naked man", "The Cornell logo"],
-     correct: 1,
+     correct: "A",
     },
     {question: "Which employee did Michael hit with his car?",
      answer: ["Angela", "Meredith", "Stanley", "Kelly"],
-     correct: 2,
+     correct: "B",
     },
     {question: "Whose mother does Michael date?",
      answer: ["Angela", "Pam", "Phyllis", "Erin" ],
-     correct: 2,
+     correct: "B",
     },
     {question: "Who marries Jim and Pam?",
      answer: ["Phyllis", "Dwight", "Kelly", "Michael"],
-     correct: 4,
+     correct: "D",
     }];
 
 //Set initial variables
@@ -41,34 +41,47 @@ var time = 5;
 var intervalID;
 var questionIndex = 0; 
 var answered = false; 
+var correctCount = 0;
+var incorrectCount = 0; 
+var id = "" //the id of the input (answer) that was clicked on by the player
 
 //Place questions and answers in HTML DOM with a for loop
 
 
 //Initial load of question and answers
 $("#question").html(triviaGame[0].question)
-for (var i=0; i < triviaGame.length; i++){
-    $("#0").val(triviaGame[0].answer[0])
-    $("#1").val(triviaGame[0].answer[1])
-    $("#2").val(triviaGame[0].answer[2])
-    $("#3").val(triviaGame[0].answer[3])
-}
+$("#0").val(triviaGame[0].answer[0])
+$("#1").val(triviaGame[0].answer[1])
+$("#2").val(triviaGame[0].answer[2])
+$("#3").val(triviaGame[0].answer[3])
+
 
 //On click functionality for when a player picks an answer
-$(".input-group-text").on("click", function(){
+$(".input-group-text").click(function(){
     answered = true; 
-    console.log("answered!")
-})
+    id = $(this).attr("id");
+    console.log(id)
+    if (id === triviaGame[i].correct){ //if the id of the input that was clicked on matches the correct value 
+        correctCount++;
+    } else { //if the id of the input that was clicked on does not match the correct value 
+        incorrectCount++; 
+    }
+
+});
 
 
 //If statements based on how much time is left
 if (time > 0) { //if time is still available, perform the functions below
     
+    //function to start the time decrement
     function run(){
         intervalID = setInterval(decrement, 1000)
         $("#remaining-time").html(time)
     }
-    //if the question has not been answered yet
+
+    //on-click functionality for when a player picks an answer 
+
+    //if statements based on whether the question has been answered or not
     if (answered = false){ 
         function decrement(){ //decrement function 
             time--; 
@@ -83,9 +96,7 @@ if (time > 0) { //if time is still available, perform the functions below
         function stop(){ //stop function to clear out interval
             clearInterval(intervalID); 
         }
-    }
-    //if the question has been answered
-    if (answered){
+    } else if (answered){ //else if the question has been answered
         function stop(){ //stop function to clear out interval
             clearInterval(intervalID); 
         }

@@ -9,13 +9,23 @@
 }
 
 #dwight1 {
-    margin-top: 20%;
+    margin-left: 60%; 
 }
 
 #dwight2 {
     display: block; 
     margin: auto; 
     margin-top: 40%; 
+}
+
+#introduction {
+    min-height: 70vh;
+    min-width: 100vh; 
+}
+
+#top {
+    height: 30vh; 
+    min-width: 100vh; 
 }
 
 #first-page {
@@ -29,4 +39,10 @@
     color: black; 
     font-family: 'Bitter', serif; 
     font-size: 100px; 
+}
+
+#intro-caption {
+    color: white; 
+    font-family: 'Bitter', serif; 
+    font-size: 30px; 
 }

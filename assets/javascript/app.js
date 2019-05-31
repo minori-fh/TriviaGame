@@ -9,6 +9,33 @@ $("#start").on("click", function(){
     $("#trivia-page").show();
 });
 
+//Create array of objects for trivia game questions and answers
+var triviaGame = [
+    {question: "What type of farm does Dwight own?",
+     answer: ["Bear farm", "Beet farm", "Carrot farm", "Beetle farm"],
+     correct: 2,
+    },
+    {question: "Which of Angela's cats does Dwight freeze?",
+     answer: ["Bandit", "Sparkles", "Sprinkes", "Fluffy"],
+     correct: 3,
+    },
+    {question: "What tattoo is Andy forced to get?",
+     answer: ["A 'nard dog'", "A butt", "A naked man", "The Cornell logo"],
+     correct: 1,
+    },
+    {question: "Which employee did Michael hit with his car?",
+     answer: ["Angela", "Meredith", "Stanley", "Kelly"],
+     correct: 2,
+    },
+    {question: "Whose mother does Michael date?",
+     answer: ["Angela", "Pam", "Phyllis", "Erin" ],
+     correct: 2,
+    },
+    {question: "Who marries Jim and Pam?",
+     answer: ["Phyllis", "Dwight", "Kelly", "Michael"],
+     correct: 4,
+    }];
+
 //Set initial variables
 var time = 5;
 var intervalID; 
@@ -38,7 +65,8 @@ if (time > 0) { //if time is still available, perform the functions below
     run();
 
 } else if (time === 0) { //if time has run out, perform the functions below 
-
+    stop();
+    $("#message").html("You ran out of time!")
 }
 
 

@@ -73,3 +73,16 @@
     width: 70%; 
 }
 
+#remaining-time, #correct-answer {
+    font-family: 'Bitter', serif;
+    font-size: 20px; 
+    margin-left: 10px; 
+}
+
+#correct-answer {
+    font-family: 'Bitter', serif; 
+    font-size: 20px; 
+    text-align: center; 
+    color: white; 
+}
+

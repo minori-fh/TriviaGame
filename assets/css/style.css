@@ -3,7 +3,7 @@
     background-image: url(../images/wrinkledPaper.png)
 }
 
-#site-left {
+#site-left, #stats {
     min-height: 100vh; 
     background-color: rgb(145, 215, 236);
     /* background-color: rgb(116, 187, 128); */
@@ -17,6 +17,13 @@
     display: block; 
     margin: auto; 
     margin-top: 30%; 
+}
+
+#dwight3 {
+    display: block; 
+    margin: auto; 
+    margin-top: 40%; 
+    margin-left: 10px; 
 }
 
 #introduction {
@@ -84,5 +91,22 @@
     font-size: 20px; 
     text-align: center; 
     color: white; 
+}
+
+#score-sheet {
+    background-color: white; 
+    height: 30vh; 
+    border: solid black 3px; 
+    margin-top: 40%;
+    font-family: 'Bitter', serif; 
+    text-align: center; 
+}
+
+#wins, #losses {
+    font-size: 20px; 
+}
+
+#restart {
+    text-align: center; 
 }
 

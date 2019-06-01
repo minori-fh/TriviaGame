@@ -1,39 +1,41 @@
 //Document ready
 $(document).ready(function() {
+    // $("#stats").hide()
 
 // $("#trivia-page").hide();
 
 //On click functionality to start trivia game
 $("#start").on("click", function(){
-    $("#first-page").hide();
+    // $("#first-page").hide();
     $("#trivia-page").show();
-    // startClock();
+    startClock();
+    $("input:radio").removeAttr("checked");
 });
 
 //Create array of objects for trivia game questions and answers
 var triviaGame = [
     {question: "What type of farm does Dwight own?",
-     answer: ["Bear farm", "Beet farm", "Carrot farm", "Beetle farm"],
+     answer: ["A: Bear farm", "B: Beet farm", "C: Carrot farm", "D: Beetle farm"],
      correct: "B",
     },
     {question: "Which of Angela's cats does Dwight freeze?",
-     answer: ["Bandit", "Sparkles", "Sprinkes", "Fluffy"],
+     answer: ["A: Bandit", "B: Sparkles", "C: Sprinkes", "D: Fluffy"],
      correct: "B",
     },
     {question: "What tattoo is Andy forced to get?",
-     answer: ["A 'nard dog'", "A butt", "A naked man", "The Cornell logo"],
+     answer: ["A: A 'nard dog'", "B: A butt", "C: A naked man", "D: The Cornell logo"],
      correct: "A",
     },
     {question: "Which employee did Michael hit with his car?",
-     answer: ["Angela", "Meredith", "Stanley", "Kelly"],
+     answer: ["A: Angela", "B: Meredith", "C: Stanley", "D: Kelly"],
      correct: "B",
     },
     {question: "Whose mother does Michael date?",
-     answer: ["Angela", "Pam", "Phyllis", "Erin" ],
+     answer: ["A: Angela", "B: Pam", "C: Phyllis", "D: Erin" ],
      correct: "B",
     },
     {question: "Who marries Jim and Pam?",
-     answer: ["Phyllis", "Dwight", "Kelly", "Michael"],
+     answer: ["A: Phyllis", "B: Dwight", "C: Kelly", "D: Michael"],
      correct: "D",
     }];
 
@@ -74,13 +76,15 @@ function stopClock(){
 //function: to go through list of questions
 function newQuestion(){
     if (questionIndex >= 0 && questionIndex <=5){
-        $("input[name=rad]").attr("checked",false) 
         questionIndex ++
         startClock();
+
+        $("input:radio").removeAttr("checked"); //NOT WORKING
 
         $("dwight-says").html("Question")
         $("#win-lose").html("")
         $("#correct-answer").html("")
+        $("#site-left").css("background-color", "rgb(145, 215, 236)"); 
 
         $("#question").html(triviaGame[questionIndex].question)
         $("#0").val(triviaGame[questionIndex].answer[0])
@@ -92,7 +96,21 @@ function newQuestion(){
 
 //function: clear out radio buttons
 function clearRadio(){
-    $("input[name=rad]").attr("checked",false) //clear out radio buttons
+    console.log("clear")
+
+    $("input:radio").removeAttr("checked");
+
+    // $("#0").attr("checked",false) 
+    // $("#1").attr("checked",false) 
+    // $("#2").attr("checked",false) 
+    // $("#3").attr("checked",false) 
+}
+
+//function: show stats
+function showStats(){
+    $("#stats").show();
+    $("#trivia-page").hide();
+    console.log("theEnd")
 }
 
 
@@ -105,46 +123,43 @@ $("#3").val(triviaGame[0].answer[3])
 
 //NEW-START
 $(".input-group-text").click(function(){
+    console.log($(this))
+    answered = true; 
     id = $(this).attr("id");
+    stopClock(); //stop clock 
+    setTimeout(newQuestion, 5000) //delay nextQuestion 
+    
 
-    //if TIME IS AVAILABLE
-    if(time > 0){   
+    //if statement for TIME
+    if(time > 0){//if TIME IS AVAILABLE   
         if (id === triviaGame[questionIndex].correct){ //if the id of the input that was clicked on matches the correct value 
             correctCount++;
-            answered = true; 
             $("#dwight-says").html("'FACT'")
             $("#site-left").css("background-color", "rgb(116, 187, 128)"); 
-            stopClock(); //stop clock
-            setTimeout(newQuestion, 5000) //delay nextQuestion 
 
-        } else if (id != triviaGame[questionIndex].correct){ //if the id of the input that was clicked on does not match the correct value 
-            incorrectCount++; 
-            answered = true; 
+        } else if (id != triviaGame[questionIndex].correct){ //if the id of the input that was clicked on does not match the incorrect value 
+            incorrectCount++;
             $("#dwight-says").html("'FALSE'")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
             $("#site-left").css("background-color", "rgb(153, 28, 28)");
-            stopClock(); //stop clock 
-            setTimeout(newQuestion, 5000) //delay nextQuestion 
+       
         } else { //if the player does not pick an answer
             $("#dwight-says").html("You have run out of time!")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
-            if (time === 0){
-                stopClock();
-                setTimeout(newQuestion, 5000) //delay nextQuestion 
-            }
-        }
-    //if TIME HAS RUN OUT
-    } else if (time === 0){
-        stopClock();
+        };
+
+    } else if (time === 0){//if TIME HAS RUN OUT
         if (answered === false){
             $("#dwight-says").html("You ran out of time!")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
-            setTimeout(newQuestion, 5000) //delay nextQuestion 
-        } else if (answered){
-            setTimeout(newQuestion, 5000) //delay nextQuestion 
-        }
     }
-    });
+    }
+
+    //if statement for INDEX (last question)
+    if (questionIndex === 5){
+        setTimeout(showStats, 5000)
+    };
+});
 //NEW-END
 
 }); //END document ready

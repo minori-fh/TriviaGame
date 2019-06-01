@@ -75,23 +75,22 @@ function stopClock(){
 
 //function: to go through list of questions
 function newQuestion(){
-    if (questionIndex >= 0 && questionIndex <=5){
-        questionIndex ++
-        startClock();
+    questionIndex ++
+    startClock();
+    console.log("hello???")
+    console.log($("dwight-says"))
 
-        $("input:radio").removeAttr("checked"); //NOT WORKING
+    $("input:radio").prop("checked",null); //NOT WORKING
 
-        $("dwight-says").html("Question")
-        $("#win-lose").html("")
-        $("#correct-answer").html("")
-        $("#site-left").css("background-color", "rgb(145, 215, 236)"); 
+    $("dwight-says").html("Question") //NOT WORKING
+    $("#correct-answer").html("") //working
+    $("#site-left").css("background-color", "rgb(145, 215, 236)"); //working
 
-        $("#question").html(triviaGame[questionIndex].question)
-        $("#0").val(triviaGame[questionIndex].answer[0])
-        $("#1").val(triviaGame[questionIndex].answer[1])
-        $("#2").val(triviaGame[questionIndex].answer[2])
-        $("#3").val(triviaGame[questionIndex].answer[3])
-    }
+    $("#question").html(triviaGame[questionIndex].question) //working
+    $("#0").val(triviaGame[questionIndex].answer[0]) //working
+    $("#1").val(triviaGame[questionIndex].answer[1]) //working
+    $("#2").val(triviaGame[questionIndex].answer[2]) //working
+    $("#3").val(triviaGame[questionIndex].answer[3]) //working
 }
 
 //function: clear out radio buttons
@@ -117,6 +116,8 @@ function showStats(){
 
 //function: restart game
 function playAgain(){
+    stopClock();
+
     time = 10;
     intervalID;
     questionIndex = 0; 
@@ -124,6 +125,12 @@ function playAgain(){
     correctCount = 0;
     incorrectCount = 0; 
     id = ""
+
+    $("#question").html(triviaGame[0].question)
+    $("#0").val(triviaGame[0].answer[0])
+    $("#1").val(triviaGame[0].answer[1])
+    $("#2").val(triviaGame[0].answer[2])
+    $("#3").val(triviaGame[0].answer[3])
 }
 
 
@@ -135,14 +142,13 @@ $("#2").val(triviaGame[0].answer[2])
 $("#3").val(triviaGame[0].answer[3])
 
 //NEW-START
-$(".input-group-text").click(function(){
+$("input:radio").click(function(){
     console.log($(this))
     answered = true; 
     id = $(this).attr("id");
     stopClock(); //stop clock 
     setTimeout(newQuestion, 5000) //delay nextQuestion 
     
-
     //if statement for TIME
     if(time > 0){//if TIME IS AVAILABLE   
         if (id === triviaGame[questionIndex].correct){ //if the id of the input that was clicked on matches the correct value 
@@ -157,6 +163,7 @@ $(".input-group-text").click(function(){
             $("#site-left").css("background-color", "rgb(153, 28, 28)");
        
         } else { //if the player does not pick an answer
+            console.log("what")
             $("#dwight-says").html("You have run out of time!")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
         };
@@ -178,9 +185,16 @@ $(".input-group-text").click(function(){
             $("#first-page").show();
             playAgain(); 
         })
-
     };
-});
-//NEW-END
+
+}) 
+
+if (time === 0 && answered === false){
+    console.log("okur")
+    $("#dwight-says").html("You ran out of time!")
+    $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
+}
+
+
 
 }); //END document ready

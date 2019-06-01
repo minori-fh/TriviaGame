@@ -69,6 +69,14 @@
     text-align: center; 
 }
 
+#q {
+    color: white; 
+    font-family: 'Bitter', serif;
+    font-size: 40px; 
+    text-align: center; 
+    top: 20%; 
+}
+
 #question {
     font-size: 30px; 
     text-align: center; 

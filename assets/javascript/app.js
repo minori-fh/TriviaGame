@@ -80,13 +80,17 @@ function newQuestion(){
         $("dwight-says").html("Question")
         $("#win-lose").html("")
 
-
         $("#question").html(triviaGame[questionIndex].question)
         $("#0").val(triviaGame[questionIndex].answer[0])
         $("#1").val(triviaGame[questionIndex].answer[1])
         $("#2").val(triviaGame[questionIndex].answer[2])
         $("#3").val(triviaGame[questionIndex].answer[3])
     }
+}
+
+//function: clear out radio buttons
+function clearRadio(){
+    $("input[type=radio]").attr("checked",false) //clear out radio buttons
 }
 
 
@@ -111,6 +115,7 @@ $(".input-group-text").click(function(){
             $("#site-left").css("background-color", "rgb(116, 187, 128)"); 
             stopClock(); //stop clock
             setTimeout(newQuestion, 5000) //delay nextQuestion 
+            setTimeout(clearRadio,5000)
 
         } else if (id != triviaGame[questionIndex].correct){ //if the id of the input that was clicked on does not match the correct value 
             incorrectCount++; 
@@ -120,11 +125,13 @@ $(".input-group-text").click(function(){
             $("#site-left").css("background-color", "rgb(153, 28, 28)");
             stopClock(); //stop clock 
             setTimeout(newQuestion, 5000) //delay nextQuestion 
+            setTimeout(clearRadio,5000)
         } else { //if the player does not pick an answer
             $("#win-lose").html("You have run out of time!")
             if (time === 0){
                 stopClock();
                 setTimeout(newQuestion, 5000) //delay nextQuestion 
+                setTimeout(clearRadio,5000)
             }
         }
     //if TIME HAS RUN OUT
@@ -133,8 +140,10 @@ $(".input-group-text").click(function(){
         if (answered === false){
             $("#message").html("You ran out of time!")
             setTimeout(newQuestion, 5000) //delay nextQuestion 
+            setTimeout(clearRadio,5000)
         } else if (answered){
             setTimeout(newQuestion, 5000) //delay nextQuestion 
+            setTimeout(clearRadio,5000)
         }
     }
     });

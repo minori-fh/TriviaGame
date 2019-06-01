@@ -110,7 +110,20 @@ function clearRadio(){
 function showStats(){
     $("#stats").show();
     $("#trivia-page").hide();
+    $("#wins").html("Wins: " + correctCount)
+    $("#losses").html("Losses: " + incorrectCount)
     console.log("theEnd")
+}
+
+//function: restart game
+function playAgain(){
+    time = 10;
+    intervalID;
+    questionIndex = 0; 
+    answered = false; 
+    correctCount = 0;
+    incorrectCount = 0; 
+    id = ""
 }
 
 
@@ -158,6 +171,14 @@ $(".input-group-text").click(function(){
     //if statement for INDEX (last question)
     if (questionIndex === 5){
         setTimeout(showStats, 5000)
+
+        $("#restart").click(function(){
+            $("#stats").hide();
+            $("#trvia-page").hide();
+            $("#first-page").show();
+            playAgain(); 
+        })
+
     };
 });
 //NEW-END

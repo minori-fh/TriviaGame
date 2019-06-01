@@ -1,3 +1,5 @@
+//emptying dwight-says does not work
+
 //Document ready
 $(document).ready(function() {
     // $("#stats").hide()
@@ -63,8 +65,10 @@ function decrement(){
         $("#remaining-time").html("Time remaining: " + time)
     
         if (time === 0){
-            stop();
-            $("#dwight-says").html("You ran out of time!")
+            stopClock();
+            $("#dwight-says").html("You ran out of TIME!")
+            $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
+            setTimeout(newQuestion, 5000) 
         }
     }
 }
@@ -77,12 +81,11 @@ function stopClock(){
 function newQuestion(){
     questionIndex ++
     startClock();
-    console.log("hello???")
     console.log($("dwight-says"))
 
-    $("input:radio").prop("checked",null); //NOT WORKING
+    $("input:radio").prop("checked",null); //working
 
-    $("dwight-says").html("Question") //NOT WORKING
+    $("dwight-says").empty(); //NOT WORKING
     $("#correct-answer").html("") //working
     $("#site-left").css("background-color", "rgb(145, 215, 236)"); //working
 
@@ -91,18 +94,6 @@ function newQuestion(){
     $("#1").val(triviaGame[questionIndex].answer[1]) //working
     $("#2").val(triviaGame[questionIndex].answer[2]) //working
     $("#3").val(triviaGame[questionIndex].answer[3]) //working
-}
-
-//function: clear out radio buttons
-function clearRadio(){
-    console.log("clear")
-
-    $("input:radio").removeAttr("checked");
-
-    // $("#0").attr("checked",false) 
-    // $("#1").attr("checked",false) 
-    // $("#2").attr("checked",false) 
-    // $("#3").attr("checked",false) 
 }
 
 //function: show stats
@@ -133,7 +124,6 @@ function playAgain(){
     $("#3").val(triviaGame[0].answer[3])
 }
 
-
 //Initial load of first question/answers and timer start 
 $("#question").html(triviaGame[0].question)
 $("#0").val(triviaGame[0].answer[0])
@@ -146,6 +136,7 @@ $("input:radio").click(function(){
     console.log($(this))
     answered = true; 
     id = $(this).attr("id");
+    $("input:radio").not(this).prop("disabled", "disabled"); //ensure player can only pick one radio button
     stopClock(); //stop clock 
     setTimeout(newQuestion, 5000) //delay nextQuestion 
     
@@ -161,19 +152,8 @@ $("input:radio").click(function(){
             $("#dwight-says").html("'FALSE'")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
             $("#site-left").css("background-color", "rgb(153, 28, 28)");
-       
-        } else { //if the player does not pick an answer
-            console.log("what")
-            $("#dwight-says").html("You have run out of time!")
-            $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
-        };
-
-    } else if (time === 0){//if TIME HAS RUN OUT
-        if (answered === false){
-            $("#dwight-says").html("You ran out of time!")
-            $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
-    }
-    }
+        }
+    };
 
     //if statement for INDEX (last question)
     if (questionIndex === 5){
@@ -187,14 +167,6 @@ $("input:radio").click(function(){
         })
     };
 
-}) 
-
-if (time === 0 && answered === false){
-    console.log("okur")
-    $("#dwight-says").html("You ran out of time!")
-    $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
-}
-
-
+});
 
 }); //END document ready

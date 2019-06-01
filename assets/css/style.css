@@ -65,7 +65,7 @@
 #dwight-says {
     color: white; 
     font-family: 'Bitter', serif; 
-    font-size: 50px; 
+    font-size: 60px; 
     text-align: center; 
 }
 
@@ -88,10 +88,15 @@
     width: 70%; 
 }
 
-#remaining-time, #correct-answer {
+#remaining-time {
     font-family: 'Bitter', serif;
     font-size: 20px; 
-    margin-left: 10px; 
+    margin-left: 10%; 
+}
+
+#correct-answer {
+    font-family: 'Bitter', serif;
+    font-size: 20px; 
 }
 
 #correct-answer {
@@ -117,4 +122,5 @@
 #restart {
     text-align: center; 
 }
+
 

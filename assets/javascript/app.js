@@ -2,13 +2,12 @@
 
 //Document ready
 $(document).ready(function() {
-    // $("#stats").hide()
-
-// $("#trivia-page").hide();
+    $("#stats").hide()
+    $("#trivia-page").hide();
 
 //On click functionality to start trivia game
 $("#start").on("click", function(){
-    // $("#first-page").hide();
+    $("#first-page").hide();
     $("#trivia-page").show();
     startClock();
     $("input:radio").removeAttr("checked");
@@ -66,6 +65,7 @@ function decrement(){
     
         if (time === 0){
             stopClock();
+            $("input:radio").prop("disabled", "disabled"); //ensure player cannot click on buttons while waiting for next question
             $("#dwight-says").html("You ran out of TIME!")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
             setTimeout(newQuestion, 5000) 
@@ -84,6 +84,7 @@ function newQuestion(){
     console.log($("dwight-says"))
 
     $("input:radio").prop("checked",null); //working
+    $("input:radio").prop("disabled", false);
 
     $("dwight-says").empty(); //NOT WORKING
     $("#correct-answer").html("") //working

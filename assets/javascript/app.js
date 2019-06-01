@@ -38,7 +38,7 @@ var triviaGame = [
     }];
 
 //Set initial variables
-var time = 5;
+var time = 10;
 var intervalID;
 var questionIndex = 0; 
 var answered = false; 
@@ -49,25 +49,46 @@ var id = "" //the id of the input (answer) that was clicked on by the player
 //FUNCTION DECLARATIONS
 //function: start clock
 function startClock(){
+    time = 10; 
     console.log("working")
     intervalID = setInterval(decrement, 1000)
     $("#remaining-time").html(time)
 }
 //function: decrement
 function decrement(){ 
-    time--; 
-    console.log(time)
-    $("#remaining-time").html(time)
-
-    if (time === 0){
-        stop();
-        $("#message").html("You ran out of time!")
+    if (time > 0){
+        time--; 
+        $("#remaining-time").html(time)
+    
+        if (time === 0){
+            stop();
+            $("#message").html("You ran out of time!")
+        }
     }
 }
 //function: stopClock
 function stopClock(){ 
     clearInterval(intervalID); 
 }
+
+//function: to go through list of questions
+function newQuestion(){
+    if (questionIndex >= 0 && questionIndex <=5){
+        questionIndex ++
+        startClock();
+
+        $("dwight-says").html("Question")
+        $("#win-lose").html("")
+
+
+        $("#question").html(triviaGame[questionIndex].question)
+        $("#0").val(triviaGame[questionIndex].answer[0])
+        $("#1").val(triviaGame[questionIndex].answer[1])
+        $("#2").val(triviaGame[questionIndex].answer[2])
+        $("#3").val(triviaGame[questionIndex].answer[3])
+    }
+}
+
 
 //Initial load of first question/answers and timer start 
 $("#question").html(triviaGame[0].question)
@@ -89,20 +110,33 @@ $(".input-group-text").click(function(){
             $("#dwight-says").html("'FACT'")
             $("#site-left").css("background-color", "rgb(116, 187, 128)"); 
             stopClock(); //stop clock
+            setTimeout(newQuestion, 5000) //delay nextQuestion 
 
-        } else { //if the id of the input that was clicked on does not match the correct value 
+        } else if (id != triviaGame[questionIndex].correct){ //if the id of the input that was clicked on does not match the correct value 
             incorrectCount++; 
             answered = true; 
             $("#win-lose").html("Incorrect!")
             $("#dwight-says").html("'FALSE'")
             $("#site-left").css("background-color", "rgb(153, 28, 28)");
             stopClock(); //stop clock 
+            setTimeout(newQuestion, 5000) //delay nextQuestion 
+        } else { //if the player does not pick an answer
+            $("#win-lose").html("You have run out of time!")
+            if (time === 0){
+                stopClock();
+                setTimeout(newQuestion, 5000) //delay nextQuestion 
+            }
         }
     //if TIME HAS RUN OUT
-    } else if (time === 0 && answered === false){  
+    } else if (time === 0){
         stopClock();
-        $("#message").html("You ran out of time!")
-    };
+        if (answered === false){
+            $("#message").html("You ran out of time!")
+            setTimeout(newQuestion, 5000) //delay nextQuestion 
+        } else if (answered){
+            setTimeout(newQuestion, 5000) //delay nextQuestion 
+        }
+    }
     });
 //NEW-END
 

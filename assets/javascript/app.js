@@ -63,12 +63,17 @@ function decrement(){
         time--; 
         $("#remaining-time").html("Time remaining: " + time)
     
-        if (time === 0){
+        if (time === 0 && answered === true){
             stopClock();
             $("input:radio").prop("disabled", "disabled"); //ensure player cannot click on buttons while waiting for next question
             $("#dwight-says").html("You ran out of TIME!")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
             setTimeout(newQuestion, 5000) 
+            console.log("hi")
+        } else if (time === 0 && answered === false){
+            stopClock()
+            setTimeout(showStats, 5000)
+            console.log("wtf")
         }
     }
 }
@@ -80,8 +85,9 @@ function stopClock(){
 //function: to go through list of questions
 function newQuestion(){
     questionIndex ++
+    answered = false 
     startClock();
-    console.log($("dwight-says"))
+    console.log(answered)
 
     $("input:radio").prop("checked",null); //working
     $("input:radio").prop("disabled", false);
@@ -134,7 +140,6 @@ $("#3").val(triviaGame[0].answer[3])
 
 //NEW-START
 $("input:radio").click(function(){
-    console.log($(this))
     answered = true; 
     id = $(this).attr("id");
     $("input:radio").not(this).prop("disabled", "disabled"); //ensure player can only pick one radio button

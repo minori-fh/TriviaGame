@@ -1,4 +1,5 @@
 //emptying dwight-says does not work
+//page wiggles with the timer 
 
 //Document ready
 $(document).ready(function() {
@@ -62,18 +63,19 @@ function decrement(){
     if (time > 0){
         time--; 
         $("#remaining-time").html("Time remaining: " + time)
-    
-        if (time === 0 && answered === true){
-            stopClock();
+        
+        if (time === 0 && answered === false && questionIndex === 5){ //if the last question is not answered
+            stopClock()
             $("input:radio").prop("disabled", "disabled"); //ensure player cannot click on buttons while waiting for next question
-            $("#dwight-says").html("You ran out of TIME!")
+            setTimeout(showStats, 5000)
+            console.log("wtf")
+        } else if (time === 0){ //if any question is answered
+            stopClock();
+            $("input:radio").prop("disabled", "disabled"); 
+            $("#dwight-says").html("No more time!")
             $("#correct-answer").html("The correct answer is: " + triviaGame[questionIndex].correct)
             setTimeout(newQuestion, 5000) 
             console.log("hi")
-        } else if (time === 0 && answered === false){
-            stopClock()
-            setTimeout(showStats, 5000)
-            console.log("wtf")
         }
     }
 }
@@ -110,6 +112,13 @@ function showStats(){
     $("#wins").html("Wins: " + correctCount)
     $("#losses").html("Losses: " + incorrectCount)
     console.log("theEnd")
+
+    $("#restart").click(function(){
+        $("#stats").hide();
+        $("#trvia-page").hide();
+        $("#first-page").show();
+        playAgain(); 
+    })
 }
 
 //function: restart game
@@ -164,13 +173,6 @@ $("input:radio").click(function(){
     //if statement for INDEX (last question)
     if (questionIndex === 5){
         setTimeout(showStats, 5000)
-
-        $("#restart").click(function(){
-            $("#stats").hide();
-            $("#trvia-page").hide();
-            $("#first-page").show();
-            playAgain(); 
-        })
     };
 
 });

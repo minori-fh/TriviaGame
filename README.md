@@ -12,7 +12,8 @@ Scoreboard for when the player is finished answering all questions:
 
 
 ## Description of Site
-[Site here](https://minori-fh.github.io/TriviaGame/)
+[Click here to visit site](https://minori-fh.github.io/TriviaGame/)
+
 A trivia game for the purpose of:  
 1. Practicing newly learned skills in jQuery, specifically timers
 

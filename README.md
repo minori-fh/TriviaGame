@@ -12,8 +12,8 @@ Scoreboard for when the player is finished answering all questions:
 
 
 ## Description of Site
-A hangman game for the purpose of:  
-1. Practicing newly learned skills in javascript
+A trivia game for the purpose of:  
+1. Practicing newly learned skills in jQuery, specifically timers
 
 ## Technologies Used
 1. HTML 

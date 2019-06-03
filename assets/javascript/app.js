@@ -94,7 +94,7 @@ function newQuestion(){
     $("input:radio").prop("checked",null); //working
     $("input:radio").prop("disabled", false);
 
-    $("dwight-says").empty(); //NOT WORKING
+    $("#dwight-says").empty(); //NOT WORKING
     $("#correct-answer").html("") //working
     $("#site-left").css("background-color", "rgb(145, 215, 236)"); //working
 
@@ -147,7 +147,7 @@ $("#1").val(triviaGame[0].answer[1])
 $("#2").val(triviaGame[0].answer[2])
 $("#3").val(triviaGame[0].answer[3])
 
-//NEW-START
+//on click functionality for when player clicks on a radio button
 $("input:radio").click(function(){
     answered = true; 
     id = $(this).attr("id");
